@@ -1,6 +1,6 @@
 {
-  "name": "timeaton.dev",
-  "short_name": "timeaton.dev",
+  "name": "yoursite.dev",
+  "short_name": "yoursite.dev",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

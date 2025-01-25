@@ -1,17 +1,37 @@
 ---
 layout: ../layouts/PageLayout.astro
 title: "About"
-description: "About Timothy Eaton - Developer and Designer"
+description: "About Me"
 ---
 
-# About Me
+# About Jane
 
 ---
 
-Welcome! I created this site to showcase my work as I explore new opportunities in Switzerland, and to share my ongoing projects and thoughts about design and development. I've been a computer programmer since childhood, when my dad taught me how to build motherboards and play with MSDOS scripts and Visual Basic. Since then, I've worked as a professional developer for almost 20 years.
+I'm a graphic designer who believes design is more than just pretty pictures—it's visual storytelling with purpose.
 
-Code has as almost mystical sense of fun for me, whether I'm designing something or helping someone else realize their idea. For this reason I keep ending up coding "the hard way". I like writing my own HTML, CSS, and Javascript, not using libraries or frameworks - and I like using Vim or Sublime Text (or Windows Notebook in the old days) instead of an IDE. I'm not a purist by any means - I just love a beautiful HTML document. There's something deeply satisfying about crafting clean, efficient code that works exactly as intended, without any extra layers.
+## My Journey
 
-Beyond coding, both music and travel shape my life. I love making friends across cultures and learning their stories, especially when it involves playing my mandolin or ukulele around a campfire with new friends. This love of different perspectives eventually led me to Switzerland, where I now live with my brilliant wife - and two cats (whose evil-to-cuteness ratio fluctuates dramatically from moment to moment).
+My love for design started in my college dorm room, where I'd spend hours tinkering with typography and color palettes. What began as a hobby quickly became a passion, and now it's my career. I've been fortunate to work with clients ranging from scrappy startups to established brands, each project teaching me something new.
 
-I'm always open to chat with other programmers, designers, and musicians. If you happen to live in the Nyon/Lausanne area, and would like to meet up, I'd be happy to make a new friend! Email me at <a href="mailto:tim@timeaton.dev">tim@timeaton.dev</a>.
+## What I Do
+
+My design philosophy is simple: great design solves problems while delighting the eye. I specialize in:
+
+- Brand identity design
+- Digital illustrations
+- User interface design
+- Visual storytelling
+
+## Beyond the Screen
+
+When I'm not designing, you'll find me:
+
+- Hunting for vintage design books
+- Experimenting with watercolor painting
+- Exploring local coffee shops with my sketchbook
+- Listening to design podcasts (total design nerd alert!)
+
+## Let's Connect
+
+Want to chat design, collaborate, or just share a good coffee recommendation? Drop me a line. I'm always excited to meet fellow creatives and explore new design adventures.

@@ -12,7 +12,7 @@
         },
         "author": {
           "type": "string",
-          "default": "Tim Eaton"
+          "default": "Jane Doe"
         },
         "externalUrl": {
           "type": "string"
@@ -21,12 +21,7 @@
           "type": "string"
         },
         "category": {
-          "type": "string",
-          "enum": [
-            "dev",
-            "musings",
-            "life"
-          ]
+          "type": "string"
         },
         "publicationDate": {
           "anyOf": [

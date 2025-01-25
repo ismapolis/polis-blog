@@ -35,6 +35,8 @@ npm run build
 
 ## Customization
 
+- Add your own avatar in the `public/` directory
+- Edit `astro.config.mjs` to use your website, name, and description
 - Edit pages in `src/pages/`
 - Modify the layout in `src/layouts/Layout.astro`
 - Update styles in the respective component files
@@ -44,13 +46,17 @@ npm run build
 
 The colors were chosen using several tools to insure accessibility and contrast. The colors are all set using variables for dark and light in the global.css file. Personally, I created the palletes and gradients using these tools:
 
-- https://colorfly.io/
+- https://colorffy.com/color-scheme-generator
 - https://www.learnui.design/tools/accessible-color-generator.html
 - https://colorffy.com/mesh-gradient-generator (for the background gradient)
 
 ## Credits
 
 Built by Tim Eaton - [timeaton.dev](https://timeaton.dev).
+
+Anonymous Avatar by <a href="/photographer/maniskis12-68558">maniskis12</a> on <a href="/">Freeimages.com</a>
+
+All dummy text and posts generated with Claude AI.
 
 ## License
 

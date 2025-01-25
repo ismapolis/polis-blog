@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { CONFIG } from '../config';
 import { getCollection } from 'astro:content';
 import LinkCard from '../components/LinkCard.astro';
 import PostCard from '../components/PostCard.astro';
@@ -20,27 +21,26 @@ const finds = (await getCollection('finds', ({ data }) => {
 <Layout title="Home">
  	<section id="hero">
       <div id="hero-title">
-        <img src="/assets/timeaton.png" alt="Avatar for Tim Eaton">
+        <img src="/assets/avatar.jpg" alt="My avatar">
         <div style="font-weight: 500;">
-            <h1 class="solway-regular" style="margin:0;">Timothy Eaton</h1>
-            <div id="subtitle">He/Him | Senior Full-Stack Developer | Nyon, Switzerland</div>
+            <h1 class="solway-regular" style="margin:0;">{CONFIG.author}</h1>
+            <div id="subtitle">Graphic Designer | Brooklyn, New York</div>
         </div>
       </div>
 	
       <p>
-        With over 16 years of experience as a full-stack developer, I specialize in back-end development and user experience design. I build accessible, user-friendly tools and websites using PHP (Laravel), Node.js, React, Typescript, AWS, and various other technologies, whether I'm working from scratch or updating legacy code.
-      </p><p>
-        Recently, I've been focusing on creating websites that help reduce both carbon footprints and operating costs. To learn more about sustainable web design, check out <a href="http://sustainable.dev">sustainable.dev</a>.
-      </p><p>
-        I'm currently looking for a new job in the Geneva area. I'm also available for new projects and collaborations. Whether you need a full site or want to make your existing site more optimized, I'd love to discuss it with you. Email me to start a conversation!
+        Hey there! I'm Jane, and design is my love language. By day, I'm mixing colors and pixels into stories that leap off the screen. By night, I'm blogging about the wild, wonderful world of design—sharing the messy, magical moments behind my work. Some days that means wrestling with a tricky logo, other days it's diving deep into why certain design choices just work. Grab a coffee, scroll through my site, and let's geek out about creativity together.
+      </p>
+      <p>I'm also available for new projects and collaborations. Whatever you're looking for, I'd love to discuss it with you. Email me to start a conversation!
       </p>
       
       <ul id="action-links">
-        <li><a href="/resume">Resume</a></li>
-        <li><a href="mailto:tim@timeaton.dev">Email</a></li>
-        <li><a href="https://github.com/yakbrother">Github</a></li>
-        <li><a href="https://www.linkedin.com/in/tim-eaton-pluies/">LinkedIn</a></li>
-        <li><a href="https://bsky.app/profile/yakbrother.bsky.social">Bluesky</a></li>
+        <li><a href="#">Email</a></li>
+        <li><a href="#">Github</a></li>
+        <li><a href="#">Dribbble</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Bluesky</a></li>
       </ul>
       
     </section>
@@ -50,39 +50,13 @@ const finds = (await getCollection('finds', ({ data }) => {
     <section id="skills">
         <h2 class="solway-regular">Skills</h2>
           <ul class="pill-list">
-              <li>PHP</li>
-              <li>Javascript</li>
-              <li>HTML Standards</li>
-              <li>Modern CSS</li>
-              <li>Accessibility</li>
-              <li>User Experience</li>
-              <li>Design</li>
-              <li>Sustainable Energy Use</li>
-              <li>Laravel</li>
-              <li>Vue.js</li>
-              <li>Typescript</li>
+              <li>Photoshop</li>
+              <li>Figma</li>
+              <li>etc.</li>
           </ul>
         </section>
 
 	<hr />
-  
-  <section id="word">
-    <h2>Work Case Studies</h2>
-    <div class="work-grid">
-      <a href="/about" class="card">
-        <h3>Online Agreement System</h3>
-        <p>Building and managing a contract management system.</p>
-      </a>
-      <a href="/now" class="card">
-        <h3>Now</h3>
-        <p>See what I'm currently focused on.</p>
-      </a>
-      <a href="/resume" class="card">
-        <h3>Designs Through the Years</h3>
-        <p>How my design style has changed for this site.</p>
-      </a>
-    </div>
-  </section>
 
   <section id="recent-posts" class="posts-section">
     <h2 class="solway-regular">Latest Posts</h2>
@@ -148,13 +122,6 @@ const finds = (await getCollection('finds', ({ data }) => {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 1rem;
-        margin: 2rem 0;
-    }
-
-    .work-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 2rem;
         margin: 2rem 0;
     }
 
@@ -225,20 +192,12 @@ const finds = (await getCollection('finds', ({ data }) => {
     }
 
     /* ===== Featured & Recent Posts Sections ===== */
-    #featured,
-    #skills,
-    #cases,
-    #til,
-    #recent-posts {
+   section {
       padding-bottom: 1.5rem; 
       padding-top: 1.5rem; 
     }
 
-    #featured h2,
-    #skills h2,
-    #cases h2,
-    #til h2,
-    #recent-posts h2 {
+    section h2 {
       font-size: var(--step-2);
       line-height: 1rem; 
       font-weight: 600; 

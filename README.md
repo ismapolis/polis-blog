@@ -1,10 +1,11 @@
 # Glyptodon - Personal Website Theme
 
-A clean and modern personal website theme built with Astro, using fluid type and grid sizing for smooth size transitions.
+A clean and modern, eco-friendly personal website theme built with Astro, using fluid type and grid sizing for smooth size transitions.
 
 ## Features
 
 - Responsive design
+- Scores A or A+ (depending on hosting and your images) on [Accessify](https://www.accessify.com/) and [Ecograder](https://ecograder.com/)
 - Clean and minimal
 - Fluid typography
 - Dark and light mode (chosen by user's system preference)

@@ -37,7 +37,7 @@ npm run build
 ## Customization
 
 - Add your own avatar in the `public/` directory
-- Edit `astro.config.mjs` to use your website, name, and description
+- Edit `src/config.ts` to use your website, name, and description
 - Edit pages in `src/pages/`
 - Modify the layout in `src/layouts/Layout.astro`
 - Update styles in the respective component files

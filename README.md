@@ -2,6 +2,8 @@
 
 A clean and modern, eco-friendly personal website theme built with Astro, using fluid type and grid sizing for smooth size transitions.
 
+All dummy text is created by Claude AI to get a sense for what it looks like with content.
+
 ## Features
 
 - Responsive design

@@ -1,6 +1,6 @@
 # Glyptodon - Personal Astro Theme
 
-A clean and modern, eco-friendly personal website theme built with [Astro](https://www.astro.build], using fluid type and grid sizing for smooth size transitions.
+A clean and modern, eco-friendly personal website theme built with [Astro](https://www.astro.build), using fluid type and grid sizing for smooth size transitions.
 
 All dummy text is created by Claude AI to get a sense for what it looks like with content.
 

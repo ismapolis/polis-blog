@@ -25,6 +25,7 @@ To see it in action, I use it for my own website at [www.timeaton.dev](https://w
 - **Reduced motion support** for users with vestibular disorders
 - **Modern scrollbar** styling
 - **Loading states** and skeleton screens for better perceived performance
+- **Clean, minimal post cards** with subtle hover effects
 
 ### 🚀 Performance & Modern Web
 
@@ -185,6 +186,12 @@ The colors were chosen using several tools to ensure accessibility and contrast:
 - **Gradient Generator**: https://colorffy.com/mesh-gradient-generator
 
 All colors are CSS custom properties for easy theming.
+
+## 🔄 Recent Updates (v2.0.1)
+
+- **Refined post card design** - Removed gradient highlights and sliding backgrounds for cleaner aesthetics
+- **Enhanced accessibility** - Maintained focus indicators and keyboard navigation while simplifying visual effects
+- **Improved user experience** - Subtle hover animations without distracting elements
 
 ## 📄 License
 

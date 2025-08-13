@@ -46,26 +46,10 @@ const formattedDate = date.toLocaleDateString('en-UK', {
     overflow: hidden;
   }
 
-  .post-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-accent), var(--color-link));
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-  }
-
   .post-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     border-color: var(--color-accent);
-  }
-
-  .post-card:hover::before {
-    transform: scaleX(1);
   }
 
   .post-link {
@@ -73,6 +57,14 @@ const formattedDate = date.toLocaleDateString('en-UK', {
     text-decoration: none;
     color: inherit;
     position: relative;
+    background-image: none !important;
+    background-size: initial !important;
+  }
+
+  .post-link:hover {
+    background-image: none !important;
+    background-size: initial !important;
+    text-decoration: none;
   }
 
   .post-link:focus {

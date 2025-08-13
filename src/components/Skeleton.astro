@@ -1,0 +1,117 @@
+---
+interface Props {
+  type?: 'text' | 'title' | 'card' | 'avatar';
+  lines?: number;
+  className?: string;
+}
+
+const { type = 'text', lines = 3, className = '' } = Astro.props;
+---
+
+{type === 'text' && (
+  <div class={`skeleton skeleton--text ${className}`}>
+    {Array.from({ length: lines }).map((_, i) => (
+      <div 
+        class="skeleton-line" 
+        style={`width: ${i === lines - 1 ? '60%' : '100%'}`}
+      ></div>
+    ))}
+  </div>
+)}
+
+{type === 'title' && (
+  <div class={`skeleton skeleton--title ${className}`}>
+    <div class="skeleton-line skeleton-line--title"></div>
+  </div>
+)}
+
+{type === 'card' && (
+  <div class={`skeleton skeleton--card ${className}`}>
+    <div class="skeleton-line skeleton-line--card-title"></div>
+    <div class="skeleton-line skeleton-line--card-text"></div>
+    <div class="skeleton-line skeleton-line--card-text" style="width: 70%"></div>
+  </div>
+)}
+
+{type === 'avatar' && (
+  <div class={`skeleton skeleton--avatar ${className}`}>
+    <div class="skeleton-avatar"></div>
+  </div>
+)}
+
+<style>
+  .skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skeleton--text {
+    width: 100%;
+  }
+
+  .skeleton--title {
+    width: 100%;
+  }
+
+  .skeleton--card {
+    padding: 1rem;
+    border-radius: 8px;
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+  }
+
+  .skeleton--avatar {
+    align-items: center;
+  }
+
+  .skeleton-line {
+    height: 1rem;
+    background: linear-gradient(
+      90deg,
+      var(--color-card-muted) 25%,
+      var(--color-border) 50%,
+      var(--color-card-muted) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-line--title {
+    height: 1.5rem;
+    width: 80%;
+  }
+
+  .skeleton-line--card-title {
+    height: 1.25rem;
+    width: 60%;
+  }
+
+  .skeleton-line--card-text {
+    height: 1rem;
+  }
+
+  .skeleton-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(
+      90deg,
+      var(--color-card-muted) 25%,
+      var(--color-border) 50%,
+      var(--color-card-muted) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+</style>

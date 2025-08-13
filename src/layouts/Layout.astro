@@ -3,6 +3,7 @@ import HeadContent from	"@components/HeadContent.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
 import ScrollToTop from "@components/ScrollToTop.astro";
+import StructuredData from "@components/StructuredData.astro";
 import { CONFIG } from "../config";
 
 const { title = CONFIG.site_title, description = CONFIG.description, image = "/og-default.jpg" } = Astro.props;
@@ -13,6 +14,12 @@ const { title = CONFIG.site_title, description = CONFIG.description, image = "/o
 	<head>
 		<HeadContent title={title} description={description} image={image} />
 		<meta name="view-transition" content="same-origin" />
+		<StructuredData 
+			type="website" 
+			title={title} 
+			description={description} 
+			url={Astro.url.pathname} 
+		/>
 	</head>
 	<body>
 		<Header />
@@ -22,4 +29,18 @@ const { title = CONFIG.site_title, description = CONFIG.description, image = "/o
 		<Footer />
 		<ScrollToTop />
 	</body>
+	<script>
+		// Register service worker for PWA
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/sw.js')
+					.then((registration) => {
+						console.log('SW registered: ', registration);
+					})
+					.catch((registrationError) => {
+						console.log('SW registration failed: ', registrationError);
+					});
+			});
+		}
+	</script>
 </html>

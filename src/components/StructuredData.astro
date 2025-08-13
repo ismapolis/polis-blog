@@ -1,0 +1,92 @@
+---
+interface Props {
+  type: 'website' | 'article' | 'person';
+  title: string;
+  description: string;
+  url: string;
+  image?: string;
+  author?: string;
+  publishedDate?: string;
+  modifiedDate?: string;
+  category?: string;
+}
+
+const { 
+  type, 
+  title, 
+  description, 
+  url, 
+  image = '/og-default.jpg',
+  author = 'Jane Doe',
+  publishedDate,
+  modifiedDate,
+  category
+} = Astro.props;
+
+const baseUrl = 'https://www.yoursite.dev';
+const fullUrl = `${baseUrl}${url}`;
+const fullImageUrl = `${baseUrl}${image}`;
+
+let structuredData: any = {};
+
+if (type === 'website') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: title,
+    description: description,
+    url: baseUrl,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${baseUrl}/search?q={search_term_string}`,
+      'query-input': 'required name=search_term_string'
+    }
+  };
+} else if (type === 'article') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: description,
+    image: fullImageUrl,
+    author: {
+      '@type': 'Person',
+      name: author
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Glyptodon',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/favicon.svg`
+      }
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': fullUrl
+    },
+    datePublished: publishedDate,
+    dateModified: modifiedDate || publishedDate,
+    ...(category && { articleSection: category })
+  };
+} else if (type === 'person') {
+  structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: author,
+    url: baseUrl,
+    sameAs: [
+      'https://twitter.com/yourusername',
+      'https://github.com/yourusername',
+      'https://linkedin.com/in/yourusername'
+    ],
+    jobTitle: 'Graphic Designer',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Glyptodon'
+    }
+  };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />

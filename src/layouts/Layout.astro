@@ -11,10 +11,11 @@ const { title = CONFIG.site_title, description = CONFIG.description, image = "/o
 <html lang="en-us">
 	<head>
 		<HeadContent title={title} description={description} image={image} />
+		<meta name="view-transition" content="same-origin" />
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main transition:name="page-content">
 			<slot/>
 		</main>
 		<Footer />

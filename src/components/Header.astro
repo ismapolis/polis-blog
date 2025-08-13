@@ -1,4 +1,6 @@
 ---
+import ThemeToggle from "./ThemeToggle.astro";
+
 export interface Props {
   activeNav?: string;
 }
@@ -51,6 +53,7 @@ const { activeNav } = Astro.props;
             </svg>
             <span class="sr-only">RSS Feed</span>
           </a>
+          <ThemeToggle />
           <button class="hamburger" aria-label="Toggle Menu">
             <span class="line"></span>
             <span class="line"></span>

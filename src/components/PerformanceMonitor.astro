@@ -1,0 +1,134 @@
+---
+// Performance monitoring component
+---
+
+<script>
+  class PerformanceMonitor {
+    private observer: PerformanceObserver | null = null;
+
+    constructor() {
+      this.init();
+    }
+
+    private init(): void {
+      // Monitor Core Web Vitals
+      this.observeWebVitals();
+      
+      // Monitor other performance metrics
+      this.observePerformanceMetrics();
+      
+      // Log initial performance data
+      this.logPerformanceData();
+    }
+
+    private observeWebVitals(): void {
+      if ('PerformanceObserver' in window) {
+        try {
+          this.observer = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+              this.handleWebVital(entry);
+            }
+          });
+
+          this.observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+        } catch (error) {
+          console.warn('PerformanceObserver not supported:', error);
+        }
+      }
+    }
+
+    private observePerformanceMetrics(): void {
+      // Monitor resource loading
+      if ('PerformanceObserver' in window) {
+        try {
+          const resourceObserver = new PerformanceObserver((list) => {
+            for (const entry of list.getEntries()) {
+              if (entry.entryType === 'resource') {
+                this.handleResourceTiming(entry as PerformanceResourceTiming);
+              }
+            }
+          });
+
+          resourceObserver.observe({ entryTypes: ['resource'] });
+        } catch (error) {
+          console.warn('Resource timing observer not supported:', error);
+        }
+      }
+    }
+
+    private handleWebVital(entry: PerformanceEntry): void {
+      const metric = {
+        name: entry.name,
+        value: entry.startTime,
+        timestamp: Date.now()
+      };
+
+      // Log to console in development
+      if (import.meta.env.DEV) {
+        console.log('Web Vital:', metric);
+      }
+
+      // Send to analytics in production
+      if (!import.meta.env.DEV) {
+        this.sendToAnalytics('web-vital', metric);
+      }
+    }
+
+    private handleResourceTiming(entry: PerformanceResourceTiming): void {
+      const resourceMetric = {
+        name: entry.name,
+        duration: entry.duration,
+        transferSize: entry.transferSize,
+        initiatorType: entry.initiatorType,
+        timestamp: Date.now()
+      };
+
+      // Log slow resources
+      if (entry.duration > 1000) {
+        console.warn('Slow resource loaded:', resourceMetric);
+      }
+
+      // Send to analytics in production
+      if (!import.meta.env.DEV) {
+        this.sendToAnalytics('resource-timing', resourceMetric);
+      }
+    }
+
+    private logPerformanceData(): void {
+      // Navigation timing
+      if ('performance' in window) {
+        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+        
+        if (navigation) {
+          const navigationMetrics = {
+            domContentLoaded: navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+            loadComplete: navigation.loadEventEnd - navigation.loadEventStart,
+            domInteractive: navigation.domInteractive,
+            timestamp: Date.now()
+          };
+
+          if (import.meta.env.DEV) {
+            console.log('Navigation Timing:', navigationMetrics);
+          }
+
+          if (!import.meta.env.DEV) {
+            this.sendToAnalytics('navigation-timing', navigationMetrics);
+          }
+        }
+      }
+    }
+
+    private sendToAnalytics(type: string, data: any): void {
+      // Send to your analytics service
+      // Example: Google Analytics, Vercel Analytics, etc.
+      if ('gtag' in window) {
+        (window as any).gtag('event', type, data);
+      }
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new PerformanceMonitor();
+  });
+</script>

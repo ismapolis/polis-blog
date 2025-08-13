@@ -1,0 +1,114 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  className?: string;
+  priority?: boolean;
+}
+
+const { 
+  src, 
+  alt, 
+  width, 
+  height, 
+  className = '',
+  priority = false 
+} = Astro.props;
+---
+
+<img
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  class={`lazy-image ${className}`}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding="async"
+  data-src={src}
+  data-alt={alt}
+/>
+
+<style>
+  .lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .lazy-image.loaded {
+    opacity: 1;
+  }
+
+  .lazy-image[loading="eager"] {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  class LazyImage {
+    private images: NodeListOf<HTMLImageElement>;
+
+    constructor() {
+      this.images = document.querySelectorAll('.lazy-image:not([loading="eager"])');
+      this.init();
+    }
+
+    private init(): void {
+      if ('IntersectionObserver' in window) {
+        this.setupIntersectionObserver();
+      } else {
+        this.loadAllImages();
+      }
+    }
+
+    private setupIntersectionObserver(): void {
+      const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target as HTMLImageElement;
+            this.loadImage(img);
+            imageObserver.unobserve(img);
+          }
+        });
+      }, {
+        rootMargin: '50px 0px',
+        threshold: 0.01
+      });
+
+      this.images.forEach((img) => {
+        imageObserver.observe(img);
+      });
+    }
+
+    private loadImage(img: HTMLImageElement): void {
+      const src = img.dataset.src;
+      const alt = img.dataset.alt;
+
+      if (src) {
+        img.src = src;
+        if (alt) img.alt = alt;
+        
+        img.onload = () => {
+          img.classList.add('loaded');
+        };
+
+        img.onerror = () => {
+          console.warn('Failed to load image:', src);
+          img.classList.add('loaded'); // Still show the image container
+        };
+      }
+    }
+
+    private loadAllImages(): void {
+      this.images.forEach((img) => {
+        this.loadImage(img);
+      });
+    }
+  }
+
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new LazyImage();
+  });
+</script>

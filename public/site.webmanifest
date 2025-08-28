@@ -1,7 +1,7 @@
 {
-  "name": "Glyptodon - Personal Blog",
-  "short_name": "Glyptodon",
-  "description": "A personal blog about design, development, and creative thoughts",
+  "name": "Ismapolis Blog",
+  "short_name": "polis-blog",
+  "description": "A personal blog about my projects",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#001217",

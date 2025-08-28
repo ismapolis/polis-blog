@@ -69,13 +69,12 @@ const { Content } = await render(post);
   .category {
     padding: 0.5em;
     text-transform: capitalize;
-    background: var(--color-card);
+    color: var(--color-accent);
   }
 
-
-  .page-content :global(p:first-of-type) {
-    font-size: var(--step-1);
-    color: var(--color-text-muted);  
+  .page-content :global(strong),
+  .page-content :global(b) {
+    color: var(--color-accent);
   }
 
 </style>

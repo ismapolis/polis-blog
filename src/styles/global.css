@@ -248,7 +248,7 @@ main blockquote {
 .page-content h1 {
   font-size: var(--step-4);
   margin-bottom: var(--gap);
-  width: 50%;
+  width: 100%;
 }
 
 .page-content h2 {
@@ -281,7 +281,7 @@ main blockquote {
   border: none;
   border-top: 2px solid var(--color-border);
   margin: var(--gap) 0;
-  width: 50%;
+  width: 100%;
 }
 
 .page-content blockquote {

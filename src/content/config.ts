@@ -1,13 +1,13 @@
-import { defineCollection, z } from "astro:content";
-import { CONFIG } from "config";
+import { defineCollection, z } from 'astro:content';
+import { CONFIG } from 'config';
 
 export const posts = defineCollection({
-  type: "content",
+  type: 'content',
   schema: z.object({
     title: z.string(),
     description: z.string(),
     publicationDate: z.coerce.date(),
-    category: z.enum(["dev", "musings", "life"]),
+    category: z.enum(['dev', 'musings', 'life']),
     public: z.boolean().default(true),
     editDate: z.coerce.date().optional(),
     author: z.string().default(CONFIG.author),
@@ -16,12 +16,12 @@ export const posts = defineCollection({
 });
 
 export const finds = defineCollection({
-  type: "content",
+  type: 'content',
   schema: z.object({
     title: z.string(),
     link: z.string(),
     description: z.string(),
-    type: z.enum(["video", "article", "book", "website"]),
+    type: z.enum(['video', 'article', 'book', 'website']),
     publicationDate: z.coerce.date(),
     public: z.boolean().default(true),
   }),

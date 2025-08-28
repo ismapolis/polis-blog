@@ -3,10 +3,10 @@ services:
   polis-blog:
     build: .
     ports:
-      - '3000:3000'
+      - '3000:4321'
     volumes:
-      - ./src/content:/app/src/content
-      - ./public:/app/public
+      - ../polis-blog-content/posts:/app/src/content/posts:cached
+      - ../polis-blog-content/finds:/app/src/content/finds:cached
     environment:
       NODE_ENV: development
-    command: npm run dev
+    command: npm run dev -- --host

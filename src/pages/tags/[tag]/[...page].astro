@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPathsOptions } from 'astro';
+import Layout from '@layouts/Layout.astro';
+import PostCard from '@components/PostCard.astro';
+import Pagination from '@components/Pagination.astro';
+import Breadcrumbs from '@components/Breadcrumbs.astro';
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const posts = await getCollection('posts', ({ data }) => data.public !== false);
+
+  // Obtener todas las categorías únicas
+  const tags = Array.from(
+    new Set(
+      posts.flatMap(post =>
+        Array.isArray(post.data.category)
+          ? post.data.category
+          : [post.data.category]
+      )
+    )
+  );
+
+  // Crear rutas paginadas por tag
+  return tags.flatMap(tag => {
+    const postsByTag = posts
+      .filter(post =>
+        post.data.category === tag ||
+        (Array.isArray(post.data.category) && post.data.category.includes(tag))
+      )
+      .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf());
+
+    return paginate(postsByTag, {
+      params: { tag },
+      pageSize: 10,
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
+
+const pageTitle = page.currentPage === 1
+  ? `Posts in "${tag.charAt(0).toUpperCase() + tag.slice(1)}"`
+  : `Posts in "${tag.charAt(0).toUpperCase() + tag.slice(1)}" - Page ${page.currentPage}`;
+---
+
+<Layout title={pageTitle}>
+  <Breadcrumbs path={['posts', tag]} />
+  <div class="page-content">
+    <h1>{pageTitle}</h1>
+    <hr />
+
+    <div class="posts-list">
+      {page.data.map(post => (
+        <PostCard
+          title={post.data.title}
+          description={post.data.description}
+          publicationDate={post.data.publicationDate}
+          category={post.data.category}
+          slug={post.data.slug}
+        />
+      ))}
+    </div>
+
+    <Pagination
+      currentPage={page.currentPage}
+      totalPages={page.lastPage}
+      baseUrl={`/tag/${tag}/`}
+    />
+  </div>
+</Layout>
+
+<style>
+  .page-content {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: var(--step-4);
+    margin-bottom: 2rem;
+  }
+
+  hr {
+    margin-bottom: 2rem;
+  }
+
+  /* Lista vertical única para posts filtrados */
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+</style>
+

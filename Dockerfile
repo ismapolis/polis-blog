@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 4321
 
 # Por defecto usamos modo dev para que sea editable
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev", "--", "--host"]

@@ -5,9 +5,8 @@ WORKDIR /app
 
 # Instalar dependencias de producción
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
-# Copiar el resto del proyecto, excepto el contenido dinámico
 COPY . .
 
 # Exponer el puerto donde Astro servirá el blog

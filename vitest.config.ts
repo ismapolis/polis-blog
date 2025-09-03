@@ -1,14 +1,15 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./src/test/setup.ts'],
+  server: {
+    host: true, // permite que escuche en cualquier IP del contenedor
+    port: 4321, // puerto que usas en el Deployment
   },
-  resolve: {
-    alias: {
-      '@': '/src',
+  vite: {
+    server: {
+      allowedHosts: ['blog.ismapolis.com', 'localhost', '127.0.0.1'], // hosts permitidos
+      port: 4321,
+      host: true,
     },
   },
 });

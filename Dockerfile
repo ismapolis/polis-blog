@@ -1,16 +1,14 @@
-# Usamos Node Alpine multi-arquitectura (ARM compatible)
-FROM node:20-alpine
-
+# Build stage
+FROM node:20-alpine AS builder
 WORKDIR /app
-
-# Instalar dependencias de producción
 COPY package*.json ./
 RUN npm install
-
 COPY . .
+RUN npm run build
 
-# Exponer el puerto donde Astro servirá el blog
-EXPOSE 4321
-
-# Comando por defecto: arranca el servidor Astro en producción
-CMD ["npm", "run", "preview", "--", "--port", "4321", "--host"]
+# Production stage
+FROM nginx:alpine AS production
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

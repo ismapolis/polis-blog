@@ -9,7 +9,7 @@ export const PATHS = {
 
 export const CONFIG = {
   site_title: 'Ismapolis | SSI Researcher',
-  site_url: 'https://www.yoursite.dev',
+  site_url: 'https://blog.ismapolis.com',
   author: 'Ismael Illán',
   email: 'ismael.illangarcia@gmail.com',
   description: 'Welcome to my blog!',

@@ -1,12 +1,12 @@
 {
-  "name": "glyptodon",
+  "name": "polis-blog",
   "version": "1.0.1",
   "private": true,
   "type": "module",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "astro start",
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint . --ext .js,.ts,.astro",

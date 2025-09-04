@@ -1,33 +1,28 @@
-import { defineConfig } from "astro/config";
-import { CONFIG } from "./src/config";
-import sitemap from "@astrojs/sitemap";
-import mdx from "@astrojs/mdx";
-import tailwind from "@astrojs/tailwind";
+import { defineConfig } from 'astro/config';
+import { CONFIG } from './src/config';
+import sitemap from '@astrojs/sitemap';
+import mdx from '@astrojs/mdx';
+import tailwind from '@astrojs/tailwind';
 
-import playformCompress from "@playform/compress";
+import playformCompress from '@playform/compress';
 
 export default defineConfig({
-  base: "/",
+  base: '/',
   site: CONFIG.site_url,
-  integrations: [
-    sitemap(), 
-    mdx(), 
-    tailwind(),
-    playformCompress()
-  ],
+  integrations: [sitemap(), mdx(), tailwind(), playformCompress()],
   markdown: {
     shikiConfig: {
-      theme: "material-theme-darker",
+      theme: 'material-theme-darker',
       langs: [],
     },
   },
   content: {
     collections: {
       posts: {
-        schema: "src/content/config.ts#posts",
+        schema: 'src/content/config.ts#posts',
       },
       finds: {
-        schema: "src/content/config.ts#finds",
+        schema: 'src/content/config.ts#finds',
       },
     },
   },

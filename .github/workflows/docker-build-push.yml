@@ -26,10 +26,11 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 4. Build & Push
+      # 4. Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # 5. Build & Push ARM64 image
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
@@ -38,3 +39,6 @@ jobs:
           platforms: linux/arm64
           tags: |
             docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:${{ steps.vars.outputs.sha_short }}
+            docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:latest
+          cache-from: type=registry,ref=docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:latest
+          cache-to: type=registry,mode=max,ref=docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:latest

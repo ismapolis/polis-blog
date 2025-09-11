@@ -22,11 +22,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # 3. Build & Push
-      - name: Build and Push Docker image
-        uses: docker/build-push-action@v6
+      - name: Build and push image
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/mi-blog:latest
-            ${{ secrets.DOCKER_USERNAME }}/mi-blog:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/polis-blog:${{ steps.vars.outputs.sha_short }}

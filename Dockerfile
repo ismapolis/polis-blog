@@ -1,8 +1,8 @@
 # Build stage
-FROM node:20-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:20-bullseye AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
 RUN npm run build
 

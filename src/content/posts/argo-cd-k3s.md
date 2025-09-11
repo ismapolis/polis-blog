@@ -103,13 +103,14 @@ sudo k3s kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{
 
 Open your browser and go to:
 
-`https://<IP_DEL_SERVER>:<NodePort>
-`
+`https://<IP_DEL_SERVER>:<NodePort>`
 
 Use the following credentials:
 
-- Username: `admin`
-- Password: the decoded string from the previous step.
+```yaml
+Username: admin
+Password: the decoded string from the previous step.
+```
 
 ![alt text](img/argo-main-page.png)
 

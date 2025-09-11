@@ -14,18 +14,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Login en Docker Hub
+      # 2. Obtener el SHA corto del commit
+      - name: Extract short SHA
+        id: vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      # 3. Login en Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 3. Build & Push
+      # 4. Build & Push
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            docker.io${{ secrets.DOCKERHUB_USERNAME }}/polis-blog:${{ steps.vars.outputs.sha_short }}
+            docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:${{ steps.vars.outputs.sha_short }}

@@ -201,7 +201,7 @@ sudo k3s kubectl -n kubernetes-dashboard create token admin-user
 
 Use this token to log in to the Dashboard.
 
-![alt text](img/kubernetes-dashboard.png)
+![alt text](/assets/kubernetes-dashboard.png)
 
 # Core Pods in a K3s Cluster
 

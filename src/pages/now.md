@@ -1,37 +1,25 @@
 ---
 layout: ../layouts/PageLayout.astro
-title: "Now"
-description: "What I'm focusing on now"
+title: 'Ahora'
+description: 'En qué me estoy enfocando actualmente'
 ---
 
-# What I'm Doing Now
+# Trabajo en proceso y próximos objetivos
 
----
+**Última actualización**: Octubre 2025
 
-**Last Updated**: January 2024
+## Bloqueador de anuncios
 
-## Professional Focus
+- Configurar **PiHole** junto con **Wireguard** para filtrado de anuncios.
 
-- Developing a comprehensive design system for a sustainable tech startup
-- Writing a series of design process workshops for local creative professionals
-- Consulting on brand identity for two emerging social impact organizations
+## Nodo con Home Assistant
 
-## Learning & Growth
+- Levantar una tercera Raspberry con el sistema operativo **Home Assistant**.
+- Configurar y probar **Zigbee** para integrar dispositivos IoT en el hogar.
+- Automatizar rutina luz acuario.
 
-- Diving deep into motion design and advanced animation techniques
-- Taking an online course on inclusive design principles
-- Exploring generative AI's impact on creative workflows
+## Streaming en LAN
 
-## Personal Projects
-
-- Designing a limited-edition art print collection
-- Building a small home studio for design and illustration work
-- Developing a design mentorship program for early-career creatives
-
-## Life & Wellness
-
-- Practicing daily morning sketching
-- Training for a local half-marathon
-- Experimenting with plant-based cooking
-
-_Inspired by Derek Sivers' [nownownow](https://nownownow.com) project_
+- Implementar un servicio de **streaming de películas local** dentro de la red.
+- Configurar **servidor y cliente Jellyfin** para la reproducción de contenido.
+- Configurar un **descargador de películas vía torrent** para mantener la biblioteca local.

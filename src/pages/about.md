@@ -10,4 +10,4 @@ description: 'About Me'
 
 Intentare mantener actualizado el estado del cluster con los servicios que voy añadiendo.
 
-![Jane smiling](/assets/arch-black.jpg)
+![alt text](/assets/arch-black.png)

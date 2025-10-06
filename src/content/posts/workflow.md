@@ -16,4 +16,4 @@ Cada cambio en el repositorio activa un workflow que construye y publica automá
 
 ## Flujo
 
-![alt text](/assets/arch-black.png)
+![alt text](/assets/workflow.png)

@@ -112,7 +112,7 @@ Username: admin
 Password: the decoded string from the previous step.
 ```
 
-![alt text](img/argo-main-page.png)
+![alt text](/assets/argo-main-page.png)
 
 # Conclusion and Next Steps
 

@@ -42,3 +42,11 @@ jobs:
             docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:latest
           cache-from: type=registry,ref=docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:latest
           cache-to: type=registry,mode=max,ref=docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:latest
+
+      - name: Trigger update in blog deployment
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ismapolis/cluster-deployment
+          event-type: update-blog-image
+          client-payload: '{"image": "docker.io/${{ secrets.DOCKER_USERNAME }}/polis-blog:${{ steps.vars.outputs.sha_short }}"}'

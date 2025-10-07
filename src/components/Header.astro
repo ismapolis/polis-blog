@@ -9,216 +9,155 @@ const { activeNav } = Astro.props;
 ---
 
 <header class="header">
-      <div class="logo">
-        <a href="/" id="home">
-          <img src="/favicon512.png" alt="Logo" width="32" height="32" />
-          </svg>
-          <span>
-            &nbsp;&gt;&nbsp;Home
-          </span>
-        </a>
-      </div>
-      <nav class="nav">
-        <ul class="menu">
-          <li>
-            <a href="/now/">
-              Actualidad
-            </a>
-          </li>
-          <li>
-            <a href="/about/">
-              Homelab
-            </a>
-          </li>
-          
-          <li>
-            <a href="/posts/">
-                Posts
-            </a>
-          </li>
-          <li>
-            <a href="/finds/">
-                Relacionado
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+  <div class="logo">
+    <a href="/" id="home">
+      <img src="/favicon512.png" alt="Logo" width="32" height="32" />
+      <span>&nbsp;&gt;&nbsp;Home</span>
+    </a>
+  </div>
 
-    <script>
-        const hamburger = document.querySelector('.hamburger');
-        const menu = document.querySelector('.menu');
+  <button class="hamburger" aria-label="Abrir menú">
+    <span class="line"></span>
+    <span class="line"></span>
+    <span class="line"></span>
+  </button>
 
-        hamburger?.addEventListener('click', () => {
-          menu?.classList.toggle('active');
-        });
+  <nav class="nav">
+    <ul class="menu">
+      <li><a href="/now/">Homelab & Novedades</a></li>
+      <li><a href="/posts/">Posts</a></li>
+      <li><a href="/finds/">Relacionado</a></li>
+    </ul>
+  </nav>
+</header>
 
-        // Close menu when clicking outside
-        document.addEventListener('click', (event) => {
-          const target = event.target as HTMLElement;
-          if (!target.closest('.nav') && menu?.classList.contains('active')) {
-            menu.classList.remove('active');
-          }
-        });
-    </script>
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const menu = document.querySelector('.menu');
 
-    <style>
-      .header {
-        position: sticky;
-        top: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--color-background);
-        color: var(--color-text-base);
-        box-shadow: 2px 9px 24px 0px rgba(0,0,0,0.5);
-        -webkit-box-shadow: 2px 9px 24px 0px rgba(0,0,0,0.5);
-        -moz-box-shadow: 2px 9px 24px 0px rgba(0,0,0,0.5);
-        padding: 10px 20px;
-        z-index: 1000;
-        border-bottom: 2px solid var(--color-border); 
-      }
+  hamburger?.addEventListener('click', (e) => {
+    e.stopPropagation(); // Evita que el clic se propague al documento
+    menu?.classList.toggle('active');
+  });
 
-      .logo {
-        display: flex;
-        align-items: center;
-        color: var(--color-text-base);
-      }
+  // Cerrar el menú al hacer clic fuera
+  document.addEventListener('click', (event) => {
+  const target = event.target as HTMLElement | null;
+  if (!target) return; // seguridad adicional
 
-      .logo a {
-        display: flex;
-        align-items: center;
-        padding: 0 0.25em;
-      }
+  if (!target.closest('.nav') && !target.closest('.hamburger')) {
+    menu?.classList.remove('active');
+  }
+});
+</script>
 
-      .logo #home:hover {
-        color: var(--color-link);
-      }
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-background);
+    color: var(--color-text-base);
+    box-shadow: 2px 9px 24px 0px rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    z-index: 1000;
+    border-bottom: 2px solid var(--color-border);
+  }
 
-      .logo svg {
-        width: 32px;
-      }
+  .logo {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-base);
+  }
 
-      .logo svg path {
-        fill: none;
-        stroke: var(--color-text-base);
-      }
+  .logo a {
+    display: flex;
+    align-items: center;
+    padding: 0 0.25em;
+    text-decoration: none;
+  }
 
-      .logo #home {
-        font-size: var(--step-1);
-        margin-right: 10px;
-        color: var(--color-text-base);
-        text-decoration: none;
-      }
+  .logo #home:hover {
+    color: var(--color-link);
+  }
 
-      .nav {
-        display: flex;
-        align-items: center;
-      }
+  .nav {
+    display: flex;
+    align-items: center;
+    position: relative; /* IMPORTANTE para el menú desplegable */
+    z-index: 900;
+  }
 
-      .nav-right {
-        display: flex;
-        align-items: center;
-        padding-left: 1em;
-        gap: 1rem;
-      }
+  .menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 
-      .menu {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
+  .menu li {
+    margin-left: 20px;
+  }
 
-      .menu li {
-        margin-left: 20px;
-      }
+  .menu li a {
+    color: var(--color-text-base);
+    text-decoration: none;
+    padding: 0 0.25em;
+  }
 
-      .menu li a {
-        color: var(--color-text-base);
-        text-decoration: none;
-        padding: 0 0.25em;
-      }
+  .menu li a:hover {
+    color: var(--color-link);
+  }
 
-      .menu li a:hover {
-        color: var(--color-link);
-      }
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 2000; /* MÁS ALTO QUE LA NAV */
+    position: relative;
+    margin-left: auto;
+  }
 
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        justify-content: space-around;
-        width: 24px;
-        height: 24px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        z-index: 10;
-      }
+  .hamburger .line {
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text-base);
+    transition: all 0.3s ease;
+  }
 
-      .hamburger .line {
-        width: 24px;
-        height: 2px;
-        background-color: var(--color-text-base);
-        margin: 0;
-        transition: all 0.3s linear;
-        position: relative;
-        transform-origin: 1px;
-      }
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+    }
 
-      .rss-link {
-        display: flex;
-        color: var(--color-text-base);
-        align-items: center;
-        padding: 0 0.25em;
-      }
+    .menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: var(--color-background);
+      flex-direction: column;
+      padding: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      border: 1px solid var(--color-border);
+      z-index: 1500;
+    }
 
-      .rss-link svg {
-        width: 24px;
-        height: 24px;
-      }
+    .menu.active {
+      display: flex;
+    }
 
-      .rss-link:hover {
-        color: var(--color-link);
-      }
-
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
-      }
-
-      @media (max-width: 768px) {
-        .hamburger {
-          display: flex;
-        }
-
-        .menu {
-          display: none;
-          position: absolute;
-          top: 100%;
-          right: 0;
-          background-color: var(--color-background);
-          padding: 1rem;
-          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-          border: 1px solid var(--color-border);
-        }
-
-        .menu.active {
-          display: flex;
-          flex-direction: column;
-        }
-
-        .menu li {
-          margin: 0.5rem 0;
-          text-align: right;
-        }
-      }
-    </style>
+    .menu li {
+      margin: 0.5rem 0;
+      text-align: right;
+    }
+  }
+</style>

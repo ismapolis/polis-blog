@@ -19,13 +19,13 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 }
 
 const { page } = Astro.props;
-const pageTitle = page.currentPage === 1 ? 'Today I Found...' : `Today I Found... - Page ${page.currentPage}`;
+const pageTitle = page.currentPage === 1 ? 'Relacionado...' : `Relacionado... - Página ${page.currentPage}`;
 ---
 
 <Layout title={pageTitle}>
   <div class="page-content">
-    <Breadcrumbs path={['Found']} />
-    <h1>Today I Found...</h1>
+    <Breadcrumbs path={['Relacionado']} />
+    <h1>Relacionado...</h1>
     <hr/>
     
     <div class="finds-grid">

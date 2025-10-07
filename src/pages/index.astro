@@ -21,7 +21,7 @@ const finds = (await getCollection('finds', ({ data }) => {
 const allTags = Array.from(
   new Set(
     (await getCollection('posts', ({ data }) => data.public !== false))
-      .flatMap(post => post.data.category || [])
+      .flatMap(post => post.data.tags || [])
   )
 );
 ---
@@ -75,7 +75,7 @@ const allTags = Array.from(
                 title={post.data.title}
                 description={post.data.description}
                 publicationDate={post.data.publicationDate}
-                category={post.data.category}
+                category={post.data.tags[0]}
                 slug={post.data.slug}
             />
         ))}

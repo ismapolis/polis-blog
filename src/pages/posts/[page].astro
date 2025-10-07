@@ -15,7 +15,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
 }
 
 const { page } = Astro.props;
-const pageTitle = page.currentPage === 1 ? 'Blog Posts' : `Blog Posts - Page ${page.currentPage}`;
+const pageTitle = page.currentPage === 1 ? 'Blog Posts' : `Blog Posts - Página ${page.currentPage}`;
 ---
 
 <Layout title={pageTitle}>
@@ -27,7 +27,7 @@ const pageTitle = page.currentPage === 1 ? 'Blog Posts' : `Blog Posts - Page ${p
     <div class="posts-grid">
       {page.data.map((post) => (
         <PostCard
-          category={post.data.category}
+          category={post.data.tags[0]}
           title={post.data.title}
           description={post.data.description}
           publicationDate={post.data.publicationDate}

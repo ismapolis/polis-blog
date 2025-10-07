@@ -1,25 +1,26 @@
-import { defineCollection, z } from "astro:content";
+/* eslint-disable no-unused-vars */
+import { defineCollection, z } from 'astro:content';
 
-import { glob } from "astro/loaders";
+import { glob } from 'astro/loaders';
 
-import { CONFIG } from "config";
+import { CONFIG } from 'config';
 
 export enum FoundType {
-  video = "video",
-  article = "article",
-  book = "book",
-  website = "website",
+  video = 'video',
+  article = 'article',
+  book = 'book',
+  website = 'website',
 }
 
 const posts = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/posts" }),
+  loader: glob({ pattern: '*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
     author: z.string().default(CONFIG.author),
     externalUrl: z.string().optional(),
     description: z.string(),
-    category: z.string(),
+    tags: z.array(z.string()),
     publicationDate: z.coerce.date(),
     public: z.boolean().default(true),
     editDate: z.coerce.date().optional(),
@@ -27,7 +28,7 @@ const posts = defineCollection({
 });
 
 const finds = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/finds" }),
+  loader: glob({ pattern: '*.md', base: './src/content/finds' }),
   schema: z.object({
     title: z.string(),
     link: z.string(),

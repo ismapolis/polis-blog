@@ -9,24 +9,15 @@ import Breadcrumbs from '@components/Breadcrumbs.astro';
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const posts = await getCollection('posts', ({ data }) => data.public !== false);
 
-  // Obtener todas las categorías únicas
+  // Obtener todos los tags únicos
   const tags = Array.from(
-    new Set(
-      posts.flatMap(post =>
-        Array.isArray(post.data.category)
-          ? post.data.category
-          : [post.data.category]
-      )
-    )
+    new Set(posts.flatMap(post => post.data.tags || []))
   );
 
   // Crear rutas paginadas por tag
   return tags.flatMap(tag => {
     const postsByTag = posts
-      .filter(post =>
-        post.data.category === tag ||
-        (Array.isArray(post.data.category) && post.data.category.includes(tag))
-      )
+      .filter(post => (post.data.tags || []).includes(tag))
       .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf());
 
     return paginate(postsByTag, {
@@ -56,7 +47,7 @@ const pageTitle = page.currentPage === 1
           title={post.data.title}
           description={post.data.description}
           publicationDate={post.data.publicationDate}
-          category={post.data.category}
+          category={post.data.tags[0]}
           slug={post.data.slug}
         />
       ))}
@@ -93,4 +84,3 @@ const pageTitle = page.currentPage === 1
     gap: 2rem;
   }
 </style>
-

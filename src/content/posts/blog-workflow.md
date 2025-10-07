@@ -3,7 +3,7 @@ title: 'Workflows GitOps para el blog'
 slug: 'workflows-gitops-blog-astro'
 description: 'Automatizando la construcción de la imagen de mi blog en Astro y el despliegue automático en el cluster con Argo CD.'
 publicationDate: 2025-10-06
-category: homelab
+tags: [homelab, devops, blog]
 public: true
 author: 'Ismael Illán García'
 ---

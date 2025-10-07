@@ -16,7 +16,6 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-
 ---
 
 <Layout title={post.data.title} description={post.data.description}>
@@ -29,13 +28,16 @@ const { Content } = await render(post);
         <time datetime={post.data.publicationDate.toISOString()}>
           {formatDate(post.data.publicationDate)}
         </time>
-        {post.data.category && (
-          <span class="category">{post.data.category}</span>
+        {post.data.tags?.length > 0 && (
+          <div class="tags">
+            {post.data.tags.map((tag) => (
+              <span class="tag" aria-label={`Tag: ${tag}`}>{tag}</span>
+            ))}
+          </div>
         )}
-        By {post.data.author}
+        <span class="author">By {post.data.author}</span>
       </div>
     </header>
-    
     
     <Content />
   </article>
@@ -60,21 +62,41 @@ const { Content } = await render(post);
 
   .post-meta {
     display: flex;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
     color: var(--color-text-base);
     font-size: var(--step--1);
     align-items: center;
   }
 
-  .category {
-    padding: 0.5em;
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    border: 1px solid var(--color-accent);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
     text-transform: capitalize;
     color: var(--color-accent);
+    font-weight: 500;
+    font-size: 0.8rem;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .tag:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .author {
+    opacity: 0.8;
   }
 
   .page-content :global(strong),
   .page-content :global(b) {
     color: var(--color-accent);
   }
-
 </style>

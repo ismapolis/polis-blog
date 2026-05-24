@@ -1,12 +1,12 @@
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import astroEslintParser from 'astro-eslint-parser';
-import eslintPluginAstro from 'eslint-plugin-astro';
 
 export default [
+  {
+    ignores: ['.astro/**/*', 'node_modules/**/*', 'dist/**/*'],
+  },
   js.configs.recommended,
-  ...eslintPluginAstro.configs['flat/recommended'],
   {
     files: ['**/*.{js,ts}'],
     languageOptions: {
@@ -20,23 +20,6 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
-    },
-    rules: {
-      'no-unused-vars': 'off',
-      'no-console': 'warn',
-      '@typescript-eslint/no-unused-vars': ['warn'],
-    },
-  },
-  {
-    files: ['**/*.astro'],
-    languageOptions: {
-      parser: astroEslintParser,
-      parserOptions: {
-        parser: tsParser,
-      },
-    },
-    plugins: {
-      astro: eslintPluginAstro,
     },
     rules: {
       'no-unused-vars': 'off',

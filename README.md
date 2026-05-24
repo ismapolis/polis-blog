@@ -1,206 +1,89 @@
-# Glyptodon - Personal Astro Theme
+# polis-blog
 
-A clean and modern, eco-friendly personal website theme built with [Astro](https://www.astro.build), featuring modern web technologies, performance optimizations, and excellent developer experience.
+Personal blog built with Astro 5. Deployed at [blog.ismapolis.com](https://blog.ismapolis.com).
 
-All dummy text is created by Claude AI to get a sense for what it looks like with content.
+## Tech Stack
 
-To see it in action, I use it for my own website at [www.timeaton.dev](https://www.timeaton.dev). Feel free to use and modify for your needs!
+- **Astro 5** + **MDX** + **Tailwind CSS** + **TypeScript**
+- **Content Collections** with Zod schemas for type-safe posts and finds
+- **Playform/Compress** for CSS/image optimization at build time
+- **Multi-stage Docker** build (Node → Nginx Alpine)
+- **GitHub Actions** CI/CD: verify (lint → typecheck → build) → Docker push (ARM64)
+- **Vitest** for unit tests, **Husky** + **lint-staged** for pre-commit hooks
 
-## Screenshots
-
-## ![glyptodon-dark min](https://github.com/user-attachments/assets/49a9f63a-8002-4493-bf91-a54552c94998)
-
-## ![glyptodon-post min](https://github.com/user-attachments/assets/08943779-5cc6-45bd-b396-dda19a0350bf)
-
-![glyptodon-light min](https://github.com/user-attachments/assets/0b51d6e3-36e2-4e73-85d4-3c4fc3d6dbd8)
-
-## ✨ Features
-
-### 🎨 Design & UX
-
-- **Responsive design** with modern CSS Grid and Flexbox
-- **Manual dark/light mode toggle** with system preference fallback
-- **Smooth animations** and micro-interactions
-- **Accessibility-first** design with ARIA labels and keyboard navigation
-- **Reduced motion support** for users with vestibular disorders
-- **Modern scrollbar** styling
-- **Loading states** and skeleton screens for better perceived performance
-- **Clean, minimal post cards** with subtle hover effects
-
-### 🚀 Performance & Modern Web
-
-- **PWA support** with service worker for offline functionality
-- **View Transitions API** for smooth page transitions
-- **Lazy loading** for images and components
-- **Core Web Vitals monitoring** with performance tracking
-- **Structured data (JSON-LD)** for better SEO
-- **Optimized bundle size** with compression
-- **Modern CSS features** including container queries
-
-### 🛠️ Development Experience
-
-- **TypeScript** with strict configuration
-- **Tailwind CSS** integration with custom theme
-- **ESLint & Prettier** for code quality
-- **Vitest** for unit testing with example tests
-- **Husky** with pre-commit hooks
-- **Hot reload** development server
-- **Comprehensive scripts** for development workflow
-
-### 📱 Content & SEO
-
-- **Blog system** with MDX support
-- **Content collections** for type-safe content
-- **RSS feed** generation
-- **Sitemap** generation
-- **Open Graph** and Twitter Card support
-- **Robots.txt** generation
-- **Microblog for found links** (Today I Found...)
-- **About and Now pages**
-
-## 🏗️ Architecture
-
-- **Astro 5.12+** for static site generation
-- **Tailwind CSS** for utility-first styling
-- **TypeScript** for type safety
-- **Content Collections** for structured content
-- **Service Worker** for PWA functionality
-- **Modern ES Modules** throughout
-
-## 🚀 Getting Started
-
-1. **Clone and install dependencies:**
+## Quick Start
 
 ```bash
-git clone <your-repo>
-cd glyptodon
 npm install
-```
-
-2. **Start the development server:**
-
-```bash
-npm run dev
-```
-
-3. **Build for production:**
-
-```bash
-npm run build
-```
-
-4. **Preview production build:**
-
-```bash
-npm run preview
-```
-
-## 🛠️ Development Scripts
-
-```bash
-# Development
-npm run dev          # Start dev server
-npm run build        # Build for production
+npm run dev          # Dev server at localhost:4321
+npm run build        # Static build → dist/
 npm run preview      # Preview production build
-
-# Code Quality
-npm run lint         # Run ESLint
-npm run lint:fix     # Fix ESLint issues
-npm run format       # Format with Prettier
-npm run format:check # Check formatting
-npm run type-check   # TypeScript type checking
-
-# Testing
-npm run test         # Run tests in watch mode
-npm run test:ui      # Run tests with UI
-npm run test:run     # Run tests once
-npm run test:coverage # Run tests with coverage
 ```
 
-## 🎨 Customization
+## Development Scripts
 
-### Basic Configuration
+```bash
+npm run lint         # ESLint (.js, .ts only — .astro validated by tsc)
+npm run lint:fix     # Auto-fix lint issues
+npm run format       # Prettier write
+npm run format:check # Prettier check
+npm run type-check   # tsc --noEmit
+npm run test         # Vitest watch mode
+npm run test:run     # Vitest once (CI-friendly)
+```
 
-- Edit `src/config.ts` for site metadata
-- Update `public/site.webmanifest` for PWA settings
-- Modify `tailwind.config.mjs` for theme customization
+## Structure
 
-### Content
+```
+src/content/posts/   # Blog posts (Markdown + frontmatter)
+src/content/finds/   # "Relacionado" link cards (Markdown + frontmatter)
+src/pages/           # Astro file-based routing
+src/components/      # Reusable Astro + TS components
+src/layouts/         # Layout wrappers
+src/config.ts        # Site metadata — edit for customization
+src/content.config.ts # Content collection schemas (Zod)
+```
 
-- Add blog posts in `src/content/posts/`
-- Add finds in `src/content/finds/`
-- Update pages in `src/pages/`
+**Content schemas:**
 
-### Styling
+- **Posts**: `{title, slug, author?, description, tags[], publicationDate, public?, editDate?}`
+- **Finds**: `{title, link, description, type, publicationDate, public?}` — type is `video | article | book | website`
 
-- Global styles in `src/styles/global.css`
-- Component-specific styles in each component
-- Tailwind classes for utility styling
+## Content Management
 
-### Components
+Posts and finds are plain Markdown files. Add a file to `src/content/posts/` or `src/content/finds/` with the required frontmatter fields. The `public` field defaults to `true`; set it to `false` to hide from listings.
 
-- Layout components in `src/layouts/`
-- UI components in `src/components/`
-- All components are TypeScript and fully typed
+## Docker
 
-## 🎯 Performance
+**Development** (hot reload, bind-mount content):
 
-This theme is optimized for performance:
+```bash
+docker compose up
+# → localhost:3000
+```
 
-- **Lighthouse Score**: A+ (95+ across all metrics)
-- **Core Web Vitals**: Optimized for LCP, FID, and CLS
-- **Bundle Size**: Minimal with tree-shaking
-- **Caching**: Service worker for offline support
-- **Images**: Lazy loading and optimization
-- **Fonts**: System fonts with fallbacks
+**Production** (pre-built image from GitHub Actions):
 
-## 🔧 Advanced Features
+```bash
+# Uses docker-compose.prod.yaml or Arcane deployment
+# Image: docker.io/ismapolis/polis-blog:latest
+```
 
-### PWA Support
+## CI/CD
 
-- Service worker for offline functionality
-- Web app manifest with shortcuts
-- Installable on mobile devices
-- Background sync capabilities
+Push to `main` triggers:
 
-### SEO Optimization
+1. **Verify** — `lint` → `type-check` → `build`
+2. **Docker build & push** — ARM64 image tagged with commit SHA + `latest`
+3. **Build cache** pushed to registry for faster subsequent builds
+4. Concurrent builds on the same branch are cancelled automatically
 
-- Structured data for search engines
-- Open Graph and Twitter Card meta tags
-- Sitemap generation
-- Robots.txt configuration
+Requires secrets: `DOCKER_USERNAME`, `DOCKER_PASSWORD`.
 
-### Performance Monitoring
+## Theming
 
-- Core Web Vitals tracking
-- Resource timing monitoring
-- Navigation timing analysis
-- Development console logging
+Colors are CSS custom properties in `tailwind.config.mjs`. Theme toggle persists to localStorage with system preference fallback. Dark/light `theme-color` meta tags update per scheme.
 
-## 🎨 Color System
+## License
 
-The colors were chosen using several tools to ensure accessibility and contrast:
-
-- **Color Scheme Generator**: https://colorffy.com/color-scheme-generator
-- **Accessibility Checker**: https://www.learnui.design/tools/accessible-color-generator.html
-- **Gradient Generator**: https://colorffy.com/mesh-gradient-generator
-
-All colors are CSS custom properties for easy theming.
-
-## 🔄 Recent Updates (v2.0.1)
-
-- **Refined post card design** - Removed gradient highlights and sliding backgrounds for cleaner aesthetics
-- **Enhanced accessibility** - Maintained focus indicators and keyboard navigation while simplifying visual effects
-- **Improved user experience** - Subtle hover animations without distracting elements
-
-## 📄 License
-
-MIT License - feel free to use this theme for your personal website!
-
-## 🙏 Credits
-
-- **Built by**: Tim Eaton - [timeaton.dev](https://timeaton.dev)
-- **Avatar**: Anonymous by maniskis12 on Freeimages.com
-- **Content**: Dummy text and posts generated with Claude AI
-- **Icons**: Lucide Icons (via Tailwind CSS)
-- **Fonts**: System fonts with Inter fallback
+MIT

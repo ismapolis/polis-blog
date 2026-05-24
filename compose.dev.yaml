@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   polis-blog:
     build: .
@@ -8,5 +7,5 @@ services:
       - ../polis-blog-content/posts:/app/src/content/posts:cached
       - ../polis-blog-content/finds:/app/src/content/finds:cached
     environment:
-      NODE_ENV: development
+      - NODE_ENV=development
     command: npm run dev -- --host

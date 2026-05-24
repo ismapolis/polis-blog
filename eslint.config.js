@@ -13,12 +13,16 @@ export default [
       parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
+      globals: {
+        // DOM APIs used in Astro server-side routes
+        Response: 'readonly',
+      },
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       'no-console': 'warn',
       '@typescript-eslint/no-unused-vars': ['warn'],
     },
@@ -35,7 +39,9 @@ export default [
       astro: eslintPluginAstro,
     },
     rules: {
+      'no-unused-vars': 'off',
       'no-console': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn'],
     },
   },
   {
@@ -54,7 +60,7 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       'no-console': 'warn',
     },
   },
@@ -70,11 +76,14 @@ export default [
         beforeEach: 'readonly',
         vi: 'readonly',
         global: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        NodeListOf: 'readonly',
         Storage: 'readonly',
       },
     },
     rules: {
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       'no-console': 'warn',
     },
   },

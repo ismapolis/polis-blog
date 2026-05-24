@@ -1,0 +1,9 @@
+services:
+  polis-blog:
+    image: docker.io/ismapolis/polis-blog:latest
+    container_name: polis-blog
+    restart: unless-stopped
+    ports:
+      - '3000:80'
+    labels:
+      - com.getarcaneapp.arcane.updater=true

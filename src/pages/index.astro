@@ -5,67 +5,63 @@ import { getCollection } from 'astro:content';
 import LinkCard from '../components/LinkCard.astro';
 import PostCard from '../components/PostCard.astro';
 
-const posts = (await getCollection('posts', ({ data }) => {
-    return data.public !== false;
-}))
-    .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
-    .slice(0,5);
+const allPosts = (await getCollection('posts')).filter(post => post.data.public);
 
-const finds = (await getCollection('finds', ({ data }) => {
-    return data.public !== false;
-}))
-    .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
-    .slice(0, 10);
+const posts = [...allPosts]
+  .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
+  .slice(0, 5);
+
+const finds = (await getCollection('finds'))
+  .filter(f => f.data.public)
+  .sort((a, b) => b.data.publicationDate.valueOf() - a.data.publicationDate.valueOf())
+  .slice(0, 10);
 
 // Obtener todas las tags únicas
 const allTags = Array.from(
-  new Set(
-    (await getCollection('posts', ({ data }) => data.public !== false))
-      .flatMap(post => post.data.tags || [])
-  )
+  new Set(allPosts.flatMap(post => post.data.tags || []))
 );
 ---
 
 <Layout title="Home">
- 	<section id="hero">
-      <div id="hero-title">
-        <img src="/assets/avatar.jpg" alt="My avatar">
-        <div style="font-weight: 500;">
-            <h1 class="solway-regular" style="margin:0;">{CONFIG.author}</h1>
-            <div id="subtitle">Investigador en Sistemas Distribuidos | Valencia, Spain</div>
-        </div>
+  <section id="hero">
+    <div id="hero-title">
+      <img src="/assets/avatar.jpg" alt={`${CONFIG.author}'s avatar`}/>
+      <div style="font-weight: 500;">
+        <h1 class="solway-regular" style="margin:0;">{CONFIG.author}</h1>
+        <div id="subtitle">Investigador en Sistemas Distribuidos | Valencia, Spain</div>
       </div>
-      <p>
-        Rincón personal donde ir documentandos mis proyectos y chapuzas principalmente de mi homelab.
-      </p>
-      <p>
-        Work in progress...
-      </p>
-      
-      <ul id="action-links">
-        <li><a href="mailto:ismael.illangarcia@gmail.com">Email</a></li>
-        <li><a href="https://github.com/ismapolis">Github</a></li>
-        <li><a href="https://www.linkedin.com/in/ismael-illan/">LinkedIn</a></li>
-      </ul>
-      
-    </section>
+    </div>
+    <p>
+      Rincón personal donde ir documentandos mis proyectos y chapuzas principalmente de mi homelab.
+    </p>
+    <p>
+      Work in progress...
+    </p>
+    
+    <ul id="action-links">
+      <li><a href="mailto:ismael.illangarcia@gmail.com">Email</a></li>
+      <li><a href="https://github.com/ismapolis" target="_blank" rel="noopener noreferrer">Github</a></li>
+      <li><a href="https://www.linkedin.com/in/ismael-illan/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+    </ul>
+    
+  </section>
 
-    <hr />
+  <hr />
 
-    <section id="Tags">
-      <h2 class="solway-regular">Tags</h2>
-      <ul class="tag-list">
-        {allTags.map(tag => (
-          <li>
-            <a class="button-primary" href={`/tags/${tag}`}>
-              {tag.charAt(0).toUpperCase() + tag.slice(1)}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
+  <section id="Tags">
+    <h2 class="solway-regular">Tags</h2>
+    <ul class="tag-list">
+      {allTags.map(tag => (
+        <li>
+          <a class="button-primary" href={`/tags/${tag}`}>
+            {tag.charAt(0).toUpperCase() + tag.slice(1)}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 
-	<hr />
+  <hr />
 
   <section id="recent-posts" class="posts-section">
     <h2 class="solway-regular">Últimos Posts</h2>
@@ -88,7 +84,7 @@ const allTags = Array.from(
   <section id="finds">
     <h2 class="solway-regular">Relacionado</h2>
       <div class="finds-box">
-    		{finds.map(entry => (
+        {finds.map(entry => (
         <LinkCard
           type={entry.data.type}
           title={entry.data.title}
@@ -98,7 +94,7 @@ const allTags = Array.from(
         />
       ))}
     </div>
-	</section>
+  </section>
 
   <style>
     .card {

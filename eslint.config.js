@@ -1,13 +1,16 @@
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
+import astroEslintParser from 'astro-eslint-parser';
+import eslintPluginAstro from 'eslint-plugin-astro';
 
 export default [
   js.configs.recommended,
+  ...eslintPluginAstro.configs['flat/recommended'],
   {
     files: ['**/*.{js,ts}'],
     languageOptions: {
-      parser: tsParser, // <- esto permite parsear TypeScript
+      parser: tsParser,
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
@@ -17,8 +20,22 @@ export default [
     rules: {
       'no-unused-vars': 'warn',
       'no-console': 'warn',
-      // Reglas recomendadas de TypeScript
       '@typescript-eslint/no-unused-vars': ['warn'],
+    },
+  },
+  {
+    files: ['**/*.astro'],
+    languageOptions: {
+      parser: astroEslintParser,
+      parserOptions: {
+        parser: tsParser,
+      },
+    },
+    plugins: {
+      astro: eslintPluginAstro,
+    },
+    rules: {
+      'no-console': 'warn',
     },
   },
   {
@@ -26,9 +43,15 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-    },
-    env: {
-      serviceworker: true,
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
+        Event: 'readonly',
+        ExtendableEvent: 'readonly',
+        FetchEvent: 'readonly',
+      },
     },
     rules: {
       'no-unused-vars': 'warn',
@@ -40,18 +63,15 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-    },
-    env: {
-      node: true,
-      browser: true,
-    },
-    globals: {
-      describe: 'readonly',
-      it: 'readonly',
-      expect: 'readonly',
-      beforeEach: 'readonly',
-      vi: 'readonly',
-      global: 'readonly',
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        vi: 'readonly',
+        global: 'readonly',
+        Storage: 'readonly',
+      },
     },
     rules: {
       'no-unused-vars': 'warn',

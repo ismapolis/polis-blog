@@ -1,19 +1,21 @@
 // Test setup file for Vitest
-import { vi } from 'vitest';
+import { vi, beforeEach } from 'vitest';
 
 // Mock localStorage
 const localStorageMock = {
+  length: 0,
+  key: vi.fn(() => null),
   getItem: vi.fn(),
   setItem: vi.fn(),
   removeItem: vi.fn(),
   clear: vi.fn(),
-};
-global.localStorage = localStorageMock;
+} as unknown as Storage;
+Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock });
 
 // Mock matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(globalThis.window ?? {}, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation(query => ({
+  value: vi.fn().mockImplementation((query: string) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -26,14 +28,14 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock IntersectionObserver
-global.IntersectionObserver = vi.fn().mockImplementation(() => ({
+(globalThis as any).IntersectionObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
 }));
 
 // Mock ResizeObserver
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
+(globalThis as any).ResizeObserver = vi.fn().mockImplementation(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
   disconnect: vi.fn(),
@@ -42,4 +44,5 @@ global.ResizeObserver = vi.fn().mockImplementation(() => ({
 // Reset mocks before each test
 beforeEach(() => {
   vi.clearAllMocks();
+  (localStorageMock as any).length = 0;
 });

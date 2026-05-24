@@ -27,7 +27,7 @@ npm run lint         # ESLint (.js, .ts only — .astro validated by tsc)
 npm run lint:fix     # Auto-fix lint issues
 npm run format       # Prettier write
 npm run format:check # Prettier check
-npm run type-check   # tsc --noEmit
+npm run type-check   # `astro check` (Astro-aware TS diagnostics)
 npm run test         # Vitest watch mode
 npm run test:run     # Vitest once (CI-friendly)
 ```

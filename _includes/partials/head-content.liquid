@@ -1,0 +1,36 @@
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicon96.png" sizes="96x96">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="{{ config.site_title }}">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffe6d8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f0e17" media="(prefers-color-scheme: dark)">
+  <meta name="generator" content="Eleventy">
+
+  <title>{{ config.author }} | {{ page_title | default: "Ismapolis | SSI Researcher" }}</title>
+  <meta name="title" content="{{ config.author }} | {{ page_title | default: "Ismapolis | SSI Researcher" }}">
+  <meta name="description" content="{{ page_description | default: config.description }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ config.site_url }}{{ page.url }}">
+  <meta property="og:title" content="{{ config.author }} | {{ page_title | default: "Ismapolis | SSI Researcher" }}">
+  <meta property="og:description" content="{{ page_description | default: config.description }}">
+  <meta property="og:image" content="{{ config.site_url }}/og-default.jpg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ config.site_url }}{{ page.url }}">
+  <meta property="twitter:title" content="{{ config.author }} | {{ page_title | default: "Ismapolis | SSI Researcher" }}">
+  <meta property="twitter:description" content="{{ page_description | default: config.description }}">
+  <meta name="twitter:image" content="{{ config.site_url }}/og-default.jpg">
+
+  <!-- RSS Link -->
+  <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="{{ config.site_title }}">
+
+  <!-- Sitemap -->
+  <link rel="sitemap" href="/sitemap-index.xml">
+
+  <link rel="stylesheet" href="/global.css">

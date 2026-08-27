@@ -1,0 +1,35 @@
+---
+title: Blog Posts
+layout: base.liquid
+pagination:
+  data: sitecontent.allTags
+  size: 1
+  alias: tag
+  addAllToPages: false
+permalink: "/tags/{{ tag | slugify }}/"
+eleventyNavigation:
+  key: tags
+  order: 4
+---
+
+<div class="page-content">
+  <h1>Posts tagged with "{{ tag | capitalize }}"</h1>
+  <hr>
+  
+  <div class="posts-grid">
+    {% assign tagPosts = sitecontent.posts | where_exp: "p", "p.data.tags contains tag" %}
+    {% for post in tagPosts %}
+    <article class="post-card">
+      <a href="/posts/{{ post.data.slug }}/" class="post-link" aria-label="Read more about {{ post.data.title }}">
+        <div class="post-meta">
+          <span class="category" aria-label="Category: {{ post.data.tags[0] }}">{{ post.data.tags[0] }}</span>
+          <time datetime="{{ post.data.isoDate }}" aria-label="Published on {{ post.data.formattedDate }}">{{ post.data.formattedDate }}</time>
+        </div>
+        <h3 class="post-title">{{ post.data.title }}</h3>
+        <p class="post-description">{{ post.data.description }}</p>
+        <div class="post-arrow" aria-hidden="true">{{ sitecontent.svgArrow }}</div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+</div>

@@ -14,8 +14,21 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
+        // Browser APIs
+        document: 'readonly',
+        window: 'readonly',
+        localStorage: 'readonly',
+        console: 'readonly',
+        navigator: 'readonly',
+        setTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearTimeout: 'readonly',
+        clearInterval: 'readonly',
+        IntersectionObserver: 'readonly',
+        ResizeObserver: 'readonly',
         // DOM APIs used in Astro server-side routes
         Response: 'readonly',
+        Request: 'readonly',
       },
     },
     plugins: {

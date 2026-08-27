@@ -1,8 +1,5 @@
-# Dependencies
-node_modules
-npm-debug.log*
-
 # Build output
+_site
 dist
 .astro
 
@@ -27,7 +24,7 @@ Thumbs.db
 # Docs (solo raíz, no contenido del blog)
 README*
 LICENSE
-!src/content/**/*.md
+!_content/**/*.md
 
 # Test
 src/test
@@ -49,6 +46,7 @@ lintstagedrc*
 # Docker
 Dockerfile
 docker-compose.yaml
+docker-compose.dev.yaml
 .dockerignore
 
 # Misc

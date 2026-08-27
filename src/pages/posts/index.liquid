@@ -1,0 +1,55 @@
+---
+title: Blog Posts
+layout: base.liquid
+pagination:
+  data: sitecontent.posts
+  size: 10
+  alias: pagePosts
+  addAllToPages: false
+permalink: "/posts/"
+eleventyNavigation:
+  key: posts
+  order: 2
+---
+
+<div class="page-content">
+  <h1>Blog Posts</h1>
+  <hr>
+  
+  <div class="posts-grid">
+    {% for post in pagePosts %}
+    <article class="post-card">
+      <a href="/posts/{{ post.data.slug }}/" class="post-link" aria-label="Read more about {{ post.data.title }}">
+        <div class="post-meta">
+          <span class="category" aria-label="Category: {{ post.data.tags[0] }}">{{ post.data.tags[0] }}</span>
+          <time datetime="{{ post.data.isoDate }}" aria-label="Published on {{ post.data.formattedDate }}">{{ post.data.formattedDate }}</time>
+        </div>
+        <h3 class="post-title">{{ post.data.title }}</h3>
+        <p class="post-description">{{ post.data.description }}</p>
+        <div class="post-arrow" aria-hidden="true">{{ sitecontent.svgArrow }}</div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+
+  <nav class="pagination" aria-label="Pagination">
+    <div class="pagination-links">
+      {% if pagination.href.previous %}
+      <a href="{{ pagination.href.previous }}" class="prev" aria-label="Previous page">&#8592;&nbsp;Previous</a>
+      {% else %}
+      <span class="prev disabled">&#8592;&nbsp;Previous</span>
+      {% endif %}
+      
+      <span class="page-info">
+        {% assign currentPage = pagination.number | plus: 1 %}
+        Page {{ currentPage }} of {{ pagination.pages }}
+      </span>
+      
+      {% if pagination.href.next %}
+      <a href="{{ pagination.href.next }}" class="next" aria-label="Next page">Next&nbsp;&#8594;</a>
+      {% else %}
+      <span class="next disabled">Next&nbsp;&#8594;</span>
+      {% endif %}
+    </div>
+  </nav>
+</div>

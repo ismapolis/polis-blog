@@ -1,0 +1,15 @@
+<article class="post-card">
+  <a href="/posts/{{ post_slug }}/" class="post-link" aria-label="Read more about {{ post_title }}">
+    <div class="post-meta">
+      <span class="category" aria-label="Category: {{ post_category }}">{{ post_category }}</span>
+      <time datetime="{{ post_date_iso }}" aria-label="Published on {{ post_date_formatted }}">{{ post_date_formatted }}</time>
+    </div>
+    <h3 class="post-title">{{ post_title }}</h3>
+    <p class="post-description">{{ post_description }}</p>
+    <div class="post-arrow" aria-hidden="true">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </div>
+  </a>
+</article>

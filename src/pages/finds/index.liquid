@@ -1,0 +1,57 @@
+---
+title: Relacionado
+layout: base.liquid
+pagination:
+  data: sitecontent.finds
+  size: 40
+  alias: pageFinds
+  addAllToPages: false
+permalink: "/finds/"
+eleventyNavigation:
+  key: finds
+  order: 3
+---
+
+<div class="page-content">
+  <h1>Relacionado...</h1>
+  <hr>
+  
+  <div class="finds-grid">
+    {% for find in pageFinds %}
+    <a href="{{ find.data.link }}" class="link-card" target="_blank" rel="noopener noreferrer">
+      <div class="icon-container {{ find.data.type }}">
+        {{ find.data.svgIcon }}
+      </div>
+      <div class="content">
+        <p class="title">{{ find.data.title }}</p>
+        {% if find.data.description %}
+        <p class="description">{{ find.data.description }}</p>
+        {% endif %}
+      </div>
+      <time datetime="{{ find.data.isoDate }}">{{ find.data.formattedDate }}</time>
+      <div class="external-link">{{ sitecontent.svgExternal }}</div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <nav class="pagination" aria-label="Pagination">
+    <div class="pagination-links">
+      {% if pagination.href.previous %}
+      <a href="{{ pagination.href.previous }}" class="prev" aria-label="Previous page">&#8592;&nbsp;Previous</a>
+      {% else %}
+      <span class="prev disabled">&#8592;&nbsp;Previous</span>
+      {% endif %}
+      
+      <span class="page-info">
+        {% assign currentPage = pagination.number | plus: 1 %}
+        Page {{ currentPage }} of {{ pagination.pages }}
+      </span>
+      
+      {% if pagination.href.next %}
+      <a href="{{ pagination.href.next }}" class="next" aria-label="Next page">Next&nbsp;&#8594;</a>
+      {% else %}
+      <span class="next disabled">Next&nbsp;&#8594;</span>
+      {% endif %}
+    </div>
+  </nav>
+</div>

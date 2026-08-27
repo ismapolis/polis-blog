@@ -1,0 +1,91 @@
+---
+title: Home
+layout: base.liquid
+permalink: "/"
+eleventyNavigation:
+  key: home
+  order: 1
+---
+
+<section id="hero">
+  <div id="hero-title">
+    <img src="/assets/avatar.jpg" alt="{{ config.author }}'s avatar">
+    <div style="font-weight: 500;">
+      <h1 class="solway-regular" style="margin:0;">{{ config.author }}</h1>
+      <div id="subtitle">Investigador en Sistemas Distribuidos | Valencia, Spain</div>
+    </div>
+  </div>
+  <p>
+    Rincón personal donde ir documentandos mis proyectos y chapuzas principalmente de mi homelab.
+  </p>
+  <p>
+    Work in progress...
+  </p>
+  
+  <ul id="action-links">
+    <li><a href="mailto:{{ config.email }}">Email</a></li>
+    <li><a href="https://github.com/ismapolis" target="_blank" rel="noopener noreferrer">Github</a></li>
+    <li><a href="https://www.linkedin.com/in/ismael-illan/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+  </ul>
+  
+</section>
+
+<hr>
+
+<section id="Tags">
+  <h2 class="solway-regular">Tags</h2>
+  <ul class="tag-list">
+    {% for tag in sitecontent.allTags %}
+    <li>
+      <a class="button-primary" href="/tags/{{ tag | slugify }}/">
+        {{ tag | capitalize }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+<hr>
+
+<section id="recent-posts" class="posts-section">
+  <h2 class="solway-regular">Últimos Posts</h2>
+  <div class="posts-grid">
+    {% for post in sitecontent.recentPosts %}
+    <article class="post-card">
+      <a href="/posts/{{ post.data.slug }}/" class="post-link" aria-label="Read more about {{ post.data.title }}">
+        <div class="post-meta">
+          <span class="category" aria-label="Category: {{ post.data.tags[0] }}">{{ post.data.tags[0] }}</span>
+          <time datetime="{{ post.data.isoDate }}" aria-label="Published on {{ post.data.formattedDate }}">{{ post.data.formattedDate }}</time>
+        </div>
+        <h3 class="post-title">{{ post.data.title }}</h3>
+        <p class="post-description">{{ post.data.description }}</p>
+        <div class="post-arrow" aria-hidden="true">{{ sitecontent.svgArrow }}</div>
+      </a>
+    </article>
+    {% endfor %}
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <a href="/posts/" class="button-primary">View all posts &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section id="finds">
+  <h2 class="solway-regular">Relacionado</h2>
+  <div class="finds-box">
+    {% for find in sitecontent.recentFinds %}
+    <a href="{{ find.data.link }}" class="link-card" target="_blank" rel="noopener noreferrer">
+      <div class="icon-container {{ find.data.type }}">
+        {{ find.data.svgIcon }}
+      </div>
+      <div class="content">
+        <p class="title">{{ find.data.title }}</p>
+        {% if find.data.description %}
+        <p class="description">{{ find.data.description }}</p>
+        {% endif %}
+      </div>
+      <time datetime="{{ find.data.isoDate }}">{{ find.data.formattedDate }}</time>
+      <div class="external-link">{{ sitecontent.svgExternal }}</div>
+    </a>
+    {% endfor %}
+  </div>
+</section>

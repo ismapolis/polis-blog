@@ -1,7 +1,8 @@
 ---
-layout: ../layouts/PageLayout.astro
+layout: base.liquid
 title: 'Actualidad'
 description: 'Arquitectura del cluster y próximos pasos'
+permalink: '/now/index.html'
 ---
 
 # Homelab & Novedades

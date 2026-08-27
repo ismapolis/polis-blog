@@ -1,0 +1,37 @@
+{% if structured_data_type == 'website' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ config.site_title }}",
+  "url": "{{ config.site_url }}",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ config.site_url }}/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{% elsif structured_data_type == 'article' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ structured_data_title }}",
+  "description": "{{ structured_data_description }}",
+  "image": "{{ config.site_url }}{{ structured_data_image | default: '/og-default.jpg' }}",
+  "author": { "@type": "Person", "name": "{{ structured_data_author | default: config.author }}" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ config.author }}",
+    "logo": { "@type": "ImageObject", "url": "{{ config.site_url }}/favicon512.png" }
+  },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ config.site_url }}{{ structured_data_url }}" },
+  "datePublished": "{{ structured_data_publishedDate }}",
+  "dateModified": "{{ structured_data_modified_date | default: structured_data_publishedDate }}"
+  {% if structured_data_category %},
+  "articleSection": "{{ structured_data_category }}"
+  {% endif %}
+}
+</script>
+{% endif %}

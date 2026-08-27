@@ -2,10 +2,10 @@ services:
   polis-blog:
     build: .
     ports:
-      - '3000:4321'
+      - '3000:8080'
     volumes:
-      - ../polis-blog-content/posts:/app/src/content/posts:cached
-      - ../polis-blog-content/finds:/app/src/content/finds:cached
+      - ../polis-blog-content/posts:/app/_content/posts:cached
+      - ../polis-blog-content/finds:/app/_content/finds:cached
     environment:
       - NODE_ENV=development
     command: npm run dev -- --host

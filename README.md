@@ -1,12 +1,13 @@
 # polis-blog
 
-Personal blog built with Astro 5. Deployed at [blog.ismapolis.com](https://blog.ismapolis.com).
+Personal blog built with 11ty v3. Deployed at [blog.ismapolis.com](https://blog.ismapolis.com).
 
 ## Tech Stack
 
-- **Astro 5** + **MDX** + **Tailwind CSS** + **TypeScript**
-- **Content Collections** with Zod schemas for type-safe posts and finds
-- **Playform/Compress** for CSS/image optimization at build time
+- **11ty v3** (Eleventy) + **Liquid** templates
+- **Content** stored as Markdown files with YAML frontmatter
+- **markdown-it** for rendering, with syntax highlighting via `@11ty/eleventy-plugin-syntaxhighlight`
+- **RSS** feeds via `@11ty/eleventy-plugin-rss`
 - **Multi-stage Docker** build (Node → Nginx Alpine)
 - **GitHub Actions** CI/CD: verify (lint → typecheck → build) → Docker push (ARM64)
 - **Vitest** for unit tests, **Husky** + **lint-staged** for pre-commit hooks
@@ -15,19 +16,19 @@ Personal blog built with Astro 5. Deployed at [blog.ismapolis.com](https://blog.
 
 ```bash
 npm install
-npm run dev          # Dev server at localhost:4321
-npm run build        # Static build → dist/
+npm run dev          # Dev server at localhost:8080
+npm run build        # Static build → _site/
 npm run preview      # Preview production build
 ```
 
 ## Development Scripts
 
 ```bash
-npm run lint         # ESLint (.js, .ts only — .astro validated by tsc)
+npm run lint         # ESLint (.js, .ts only)
 npm run lint:fix     # Auto-fix lint issues
 npm run format       # Prettier write
 npm run format:check # Prettier check
-npm run type-check   # `astro check` (Astro-aware TS diagnostics)
+npm run type-check   # `tsc --noEmit`
 npm run test         # Vitest watch mode
 npm run test:run     # Vitest once (CI-friendly)
 ```
@@ -35,23 +36,43 @@ npm run test:run     # Vitest once (CI-friendly)
 ## Structure
 
 ```
-src/content/posts/   # Blog posts (Markdown + frontmatter)
-src/content/finds/   # "Relacionado" link cards (Markdown + frontmatter)
-src/pages/           # Astro file-based routing
-src/components/      # Reusable Astro + TS components
-src/layouts/         # Layout wrappers
-src/config.ts        # Site metadata — edit for customization
-src/content.config.ts # Content collection schemas (Zod)
+_content/posts/     # Blog posts (Markdown + frontmatter)
+_content/finds/     # "Relacionado" link cards (Markdown + frontmatter)
+src/pages/          # 11ty pages (Liquid templates + Markdown)
+src/_includes/      # Layouts, partials, CSS, JS
+src/_data/          # Global data files (CommonJS .cjs)
+eleventy.config.cjs # 11ty configuration
 ```
 
-**Content schemas:**
+**Note:** Content is stored in `_content/` (root level), not `src/content/`, to prevent 11ty from processing it as templates.
 
-- **Posts**: `{title, slug, author?, description, tags[], publicationDate, public?, editDate?}`
-- **Finds**: `{title, link, description, type, publicationDate, public?}` — type is `video | article | book | website`
+### Content schemas
+
+- **Posts**: `{title, slug, author?, description, tags[], publicationDate, public?, permalink, layout}`
+- **Finds**: `{title, link, description, type, publicationDate, public?, permalink, layout}` — type is `video | article | book | website`
 
 ## Content Management
 
-Posts and finds are plain Markdown files. Add a file to `src/content/posts/` or `src/content/finds/` with the required frontmatter fields. The `public` field defaults to `true`; set it to `false` to hide from listings.
+Posts and finds are plain Markdown files in `_content/posts/` and `_content/finds/`. Add a file with the required frontmatter fields:
+
+- `public: false` hides the item from listings
+- `permalink` defines the output URL
+- `layout: base.liquid` wraps content in the site shell
+
+Example post frontmatter:
+
+```yaml
+---
+title: 'My Post Title'
+slug: 'my-post-slug'
+description: 'A short description'
+tags: [tag1, tag2]
+publicationDate: 2025-01-15
+permalink: /posts/my-post-slug/
+layout: base.liquid
+---
+Post content here...
+```
 
 ## Docker
 
@@ -82,7 +103,11 @@ Requires secrets: `DOCKER_USERNAME`, `DOCKER_PASSWORD`.
 
 ## Theming
 
-Colors are CSS custom properties in `tailwind.config.mjs`. Theme toggle persists to localStorage with system preference fallback. Dark/light `theme-color` meta tags update per scheme.
+Colors are CSS custom properties. Theme toggle persists to localStorage with system preference fallback. Dark/light `theme-color` meta tags update per scheme.
+
+## Known Issues
+
+- 11ty v3 has a bug in `TemplateMap.js:getTagTarget()` where it calls `.startsWith()` on non-string values during pagination. A patch in `node_modules/@11ty/eleventy/src/TemplateMap.js` adds a `typeof str !== "string"` guard. This is a temporary workaround until upstream fixes it.
 
 ## License
 

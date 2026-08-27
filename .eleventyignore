@@ -1,0 +1,15 @@
+node_modules
+_site
+.git
+.gitignore
+.dockerignore
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+.github
+.husky
+dist
+AGENTS.md
+README.md

@@ -1,0 +1,19 @@
+<nav class="pagination" aria-label="Pagination">
+  <div class="pagination-links">
+    {% if prev_url %}
+    <a href="{{ prev_url }}" class="prev" aria-label="Previous page">&#8592;&nbsp;Previous</a>
+    {% else %}
+    <span class="prev disabled">&#8592;&nbsp;Previous</span>
+    {% endif %}
+    
+    <span class="page-info">
+      Page {{ pagination_current_page }} of {{ pagination_total_pages }}
+    </span>
+    
+    {% if next_url %}
+    <a href="{{ next_url }}" class="next" aria-label="Next page">Next&nbsp;&#8594;</a>
+    {% else %}
+    <span class="next disabled">Next&nbsp;&#8594;</span>
+    {% endif %}
+  </div>
+</nav>

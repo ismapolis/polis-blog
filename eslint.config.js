@@ -41,6 +41,24 @@ export default [
     },
   },
   {
+    files: ['**/*.cjs'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'commonjs',
+      globals: {
+        require: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+    },
+    rules: {
+      'no-unused-vars': 'off',
+      'no-console': 'warn',
+    },
+  },
+  {
     files: ['**/sw.js', '**/public/sw.js'],
     languageOptions: {
       ecmaVersion: 'latest',

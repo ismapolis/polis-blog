@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const { fileURLToPath } = require('url');
 const { readFrontmatter, formatDate, formatIso } = require('./frontmatter.cjs');
+
+const __dirname = path.dirname(fileURLToPath(require.resolve('./frontmatter.cjs')));
 
 const postsDir = path.join(__dirname, '..', '_content', 'posts');
 const findsDir = path.join(__dirname, '..', '_content', 'finds');

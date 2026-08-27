@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const { DateTime } = require('luxon');
 
 function readFrontmatter(filePath) {

@@ -96,7 +96,7 @@ class LazyImage {
       };
 
       img.onerror = () => {
-        console.warn('Failed to load image:', src);
+        // Silent fallback: image already shows as loaded
         img.classList.add('loaded');
       };
     }
@@ -188,11 +188,11 @@ function registerServiceWorker() {
     window.addEventListener('load', () => {
       navigator.serviceWorker
         .register('/sw.js')
-        .then(registration => {
-          console.log('SW registered: ', registration);
+        .then(() => {
+          // SW registered successfully
         })
-        .catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
+        .catch(() => {
+          // SW registration failed silently
         });
     });
   }

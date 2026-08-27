@@ -28,7 +28,8 @@ function svgIconForType(type) {
 
 const posts = getContentItems(postsDir);
 const finds = getContentItems(findsDir);
-posts.sort((a, b) => new Date(b.data.publicationDate) - new Date(a.data.publicationDate));
+// oldest-first so pagination reverse: true gives newest-first display
+posts.sort((a, b) => new Date(a.data.publicationDate) - new Date(b.data.publicationDate));
 finds.sort((a, b) => new Date(b.data.publicationDate) - new Date(a.data.publicationDate));
 const allTags = [...new Set(posts.flatMap(p => p.data.tags || []))].sort();
 
@@ -46,7 +47,7 @@ module.exports = {
   posts,
   finds,
   allTags,
-  recentPosts: posts.slice(0, 5),
+  recentPosts: posts.slice().reverse().slice(0, 5),
   recentFinds: finds.slice(0, 10),
   svgArrow,
   svgExternal,

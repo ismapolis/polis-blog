@@ -50,7 +50,7 @@ eleventyNavigation:
 <section id="recent-posts" class="posts-section">
   <h2 class="solway-regular">Últimos Posts</h2>
   <div class="posts-grid">
-    {% for post in sitecontent.recentPosts | reverse %}
+    {% for post in sitecontent.recentPosts %}
     <article class="post-card">
       <a href="/posts/{{ post.data.slug }}/" class="post-link" aria-label="Read more about {{ post.data.title }}">
         <div class="post-meta">

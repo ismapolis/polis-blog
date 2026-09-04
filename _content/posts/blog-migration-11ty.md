@@ -3,7 +3,7 @@ title: 'Migración del blog a 11ty v3'
 slug: 'blog-migration-11ty'
 description: 'Migración del blog de Astro a 11ty v3. Documentación de la nueva arquitectura y flujo de trabajo.'
 tags: [blog, devops]
-publicationDate: 2025-08-27
+publicationDate: 2026-08-27
 permalink: /posts/blog-migration-11ty/
 layout: base.liquid
 ---
@@ -14,7 +14,7 @@ El blog ha sido migrado de Astro 5 a [11ty v3](https://www.11ty.dev/) (Eleventy)
 
 ## ¿Por qué 11ty?
 
-Astro era excelente para sitios estáticos, pero 11ty ofrece un enfoque más programático y escalable para un blog personal:
+Astro no me terminaba de convercer, me faltaba libertad para customizar cosas de la web y me daba algún que otro problema porculero de corregir:
 
 - **Control total** sobre el pipeline de build sin abstracciones
 - **Templates Liquid** simples y predecibles
@@ -44,7 +44,7 @@ title: 'Mi nuevo post'
 slug: 'mi-nuevo-post'
 description: 'Descripción breve'
 tags: [tag1, tag2]
-publicationDate: 2025-08-27
+publicationDate: 2026-08-27
 permalink: /posts/mi-nuevo-post/
 layout: base.liquid
 ---
